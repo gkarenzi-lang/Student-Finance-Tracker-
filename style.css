@@ -1,0 +1,492 @@
+
+:root {
+    --bg: #f4f6f3;
+    --surface: #ffffff;
+    --ink: #1c2a28;
+    --muted: #55645f;
+    --line: #cdd7d2;
+    --accent: #0f6b5c;
+    --accent-dark: #0b4f44;
+    --danger: #b3261e;
+    --ok: #1b6e3a;
+    --mark: #ffe58a;
+    --radius: 8px;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font);
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--bg);
+}
+
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+section {
+    margin-bottom: 2.5rem;
+}
+
+h1, h2, h3 {
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+}
+
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.1rem; }
+
+a { color: var(--accent); }
+
+/* ---------- Accessibility helpers ---------- */
+.skip {
+    position: absolute;
+    left: 0.5rem;
+    top: -4rem;
+    padding: 0.5rem 1rem;
+    background: var(--ink);
+    color: #fff;
+    border-radius: var(--radius);
+    z-index: 10;
+}
+
+.skip:focus {
+    top: 0.5rem;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+:focus-visible {
+    outline: 3px solid #1a73e8;
+    outline-offset: 2px;
+}
+
+/* ---------- Header / nav ---------- */
+header {
+    background: var(--accent);
+}
+
+nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    align-items: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.4rem 0.25rem;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+nav a:hover {
+    border-bottom-color: #fff;
+}
+
+nav .brand {
+    font-weight: 700;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+/* ---------- Dashboard ---------- */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.stat {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0.75rem;
+}
+
+.stat h2 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin: 0;
+}
+
+.stat p {
+    margin: 0.25rem 0 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+/* Cap message: JS adds .under or .over */
+#cap-message {
+    margin: 0 0 1rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius);
+    border-left: 4px solid var(--line);
+    background: var(--surface);
+}
+
+#cap-message:empty {
+    display: none;
+}
+
+#cap-message.under {
+    border-left-color: var(--ok);
+    color: var(--ok);
+}
+
+#cap-message.over {
+    border-left-color: var(--danger);
+    color: var(--danger);
+    font-weight: 600;
+}
+
+/* Chart: JS adds <div class="bar" style="height:40%" data-label="Mon"> */
+.chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.4rem;
+    height: 160px;
+    padding: 0.75rem 0.75rem 1.75rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.chart .bar {
+    position: relative;
+    flex: 1;
+    min-height: 3px;
+    background: var(--accent);
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s ease;
+}
+
+.chart .bar::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: -1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+/* ---------- Toolbar / search ---------- */
+.toolbar {
+    display: grid;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.error {
+    color: var(--danger);
+    font-size: 0.875rem;
+    min-height: 1.2em;
+    margin: 0.25rem 0;
+}
+
+mark {
+    background: var(--mark);
+    color: inherit;
+    padding: 0 0.1em;
+    border-radius: 2px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.check,
+.check input {
+    font-weight: 400;
+}
+
+input:not([type="checkbox"]),
+select,
+textarea {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    font: inherit;
+    color: inherit;
+    background: var(--surface);
+    border: 1px solid #8a9792;
+    border-radius: var(--radius);
+}
+
+input[aria-invalid="true"] {
+    border-color: var(--danger);
+}
+
+button,
+.button {
+    display: inline-block;
+    padding: 0.55rem 1rem;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover,
+.button:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+}
+
+button:active,
+.button:active {
+    transform: scale(0.97);
+}
+
+#cancel-edit,
+.row-btn {
+    color: var(--accent);
+    background: transparent;
+}
+
+#cancel-edit:hover,
+.row-btn:hover {
+    color: #fff;
+}
+
+.row-btn.delete {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.row-btn.delete:hover {
+    color: #fff;
+    background: var(--danger);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+tbody tr {
+    display: block;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    animation: fade-in 0.3s ease;
+}
+
+td {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.3rem 0;
+}
+
+td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--muted);
+}
+
+td:last-child {
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+
+#empty {
+    padding: 1rem;
+    text-align: center;
+    color: var(--muted);
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: none; }
+}
+
+
+#tx-form {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.field {
+    margin-bottom: 0.75rem;
+}
+
+#form-status,
+#data-status {
+    min-height: 1.2em;
+    margin: 0.5rem 0 0;
+    color: var(--ok);
+}
+
+
+.settings-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.settings-grid > div {
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.settings-grid input,
+.settings-grid select {
+    margin-bottom: 0.75rem;
+}
+
+.settings-grid button,
+.settings-grid .button {
+    margin: 0 0.25rem 0.25rem 0;
+}
+
+
+footer {
+    padding: 1rem;
+    text-align: center;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+    h1 { font-size: 2rem; }
+
+    nav .brand {
+        width: auto;
+        margin-right: auto;
+    }
+
+    .stats {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .toolbar {
+        grid-template-columns: 2fr auto 1fr;
+        align-items: end;
+    }
+
+    .toolbar label[for="sort"] {
+        grid-column: 3;
+        margin: 0;
+    }
+
+    /* Real table layout */
+    thead {
+        position: static;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        clip: auto;
+    }
+
+    tbody tr {
+        display: table-row;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        animation: none;
+    }
+
+    td, th {
+        display: table-cell;
+        padding: 0.6rem;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+    }
+
+    th {
+        background: var(--surface);
+    }
+
+    td::before {
+        content: none;
+    }
+
+    .settings-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (min-width: 1024px) {
+    main {
+        padding: 2rem;
+    }
+
+    .settings-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    #tx-form {
+        max-width: 560px;
+    }
+
+    .chart {
+        height: 200px;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+    

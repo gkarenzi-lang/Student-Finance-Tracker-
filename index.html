@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Finance Tracker</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a class="skip" href="#main">Skipi to content</a>
+    <header>
+        <h1> Finance Tracker </h1>
+        <button id="menu" class="alt" aria-expanded="false" aria-controls="nav">
+            Menu
+        </button>
+        <nav id="nav" aria-label="Main">
+            <a href="#about">About</a>
+            <a href="#dashboard">About</a>
+            <a href="#records">Records</a>
+            <a href="#form">Add or Edit</a>
+            <a href="#settings">Settings</a> 
+            </nav>
+
+    </header>
+    <main id="main">
+        <section id="dashboard" aria-labelledby="dash-title">
+            <h1 id="dash-title">dashboard</h1>
+            <div class="stats">
+                <article class="stat">
+                    <h2>Transactions</h2>
+                    <p id="total-count">0</p>
+                </article>
+                <article class="stat">
+                    <h2>Total spent</h2>
+                    <p id="total-amount">0.00</p>
+                </article>
+                <article class="stat">
+                    <h2>Top Category</h2>
+                    <p id="Top-category">--</p>
+                </article>
+                <article class="stat">
+                    <h2>Last 7 days</h2>
+                    <p id="week-total">0.00</p>
+                    </article>
+            </div>
+<p id="cap-message" role="status" aria-live="polite"></p>
+<div id="chart" class="chart" role="img"
+aria-label="Spending over the last 7 days"></div>
+
+
+            </section>
+
+
+            <section id="records" aria-labelledby="records-title">
+                <h2 id="records-title">Transactions</h2>
+                <div class="toolbar">
+                    <label for="search">Regex search</label>
+                    <input id="search" type="search"
+                    placeholder="e.g. (coffe|tea)" autocomplete="off">
+                    <label class="check">
+                        <input id="case" type="checkbox"> Match case
+                    </label>
+                    <label for="sort"> Sort by </label>
+           <select id="sort">
+            <option value="date-desc">Date (Newest)</option>
+            <option value="date-asc">Date (Oldest)</option>
+           <option value="desc-asc">Description (A-Z)</option>
+           <option value="desc-desc">Description(Z-A)</option>
+           <option value="amount-asc">Amount (low-high)</option>
+           <option value="amount-desc">Amount (high-low)</option>
+        </select>
+                </div>
+<p id="search-error" class="error" role="status" aria-live="polite"></p>
+<table>
+    <caption class="sr-only"> List of Transactions</caption>
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Actions</th>
+
+        </tr>
+
+    </thead>
+    <tbody id="record-list"></tbody>
+</table>
+<p id="empty" hidden>No Transactions found. Add one below</p>
+
+<form id="tx-form" novalidate aria-labelledby="form-title">
+    <h3 id="form-title">add a transaction</h3>
+    <input type="hidden" id="edit-id">
+
+    <div class="field">
+        <label for="description"> Description </label>
+        <input id="description" required placeholder="e.g. launch at the cafeteria"> 
+        <small id="description-error" class="error"></small>
+    </div>
+    <div class="field">
+        <label for="amount">Amount</label>
+        <input id="amount" inputmode="decimal" required placeholder="e.g. 12.50">
+        <small id ="amount-error" class=" error"></small>
+
+    </div>
+    <div class="field">
+        <label for="Category">category</label>
+        <select id="category" required>
+            <option value="Food">Food</option>
+            <option value="Books"> Books</option>
+            <opition value="Transport">Transport</opition>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Fees">Fees</option>
+            <option value="Other">Other</option>
+        </select>
+        <small id="category-error" class="error"></small>
+    </div>
+    <div class="field">
+        <label for="date">Date</label>
+        <input id="date" type="date" required>
+        <small id="date-error" class="error"></small>
+    </div>
+    <button type="submit" id="save-button">Save Transaction</button>
+    <button type="button" id="cancel-edit" hidden>Cancel edit</button>
+    <p id="form-status" role="status" aria-live="polite"></p>
+
+
+</form>
+            </section>
+
+            <section id="settings" aria-labelledby="settings-title">
+                <h2 id="settings-title">Settings</h2>
+
+                <div class="settings-grid">
+                    <div>
+                        <h3>Budget cap</h3>
+                        <label for="cap">Spending cap</label>
+                        <input id="cap" type="number" min="0" step="0.01" value="500">
+        
+                    </div>
+                    <div>
+                        <h3>Currency</h3>
+                        <label for="base-currency">Base currency</label>
+                        <select id="base-currency">
+                            <option value="USD"> USD </option>
+                            <option value="EUR"> EUR</option>
+                            <option value="RWF">RWF</option>
+
+                        </select>
+
+                    <label for="rate-eur"> USD to EUR rate </label>
+                    <input id="rate-eur" type="number" min="0" step="0.0001" value="0.92">
+                    
+                    <label for="rate-rwf">USD to RWF rate</label>
+                    <input id="rate-rwf" type="number" min="0" step="0.01" value="1400">
+                    
+                    </div>
+                    <div>
+                        <h3>Backup</h3>
+                        <button id="export" type="button">Export JSON</button>
+                        <label class="button" for="import-file">Import JSON</label>
+                        <input id="import-file" type="file" accept=".json,application/json" hidden>
+                        <p id="data-status" role="status" aria-live="polite"></p>
+
+                    </div>
+                </div>
+            </section>
+
+        <section id="about" aria-labelledby="about-title">
+            <h2 id="about-title">About</h2>
+
+        </section>
+    </main>
+</body>
+</html>
